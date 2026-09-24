@@ -1,45 +1,49 @@
-import {useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom"
-import { asynclogoutuser } from "../store/actions/userAction";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
-  const dispatch= useDispatch();
-  const navigate = useNavigate();
 
-   const users = useSelector((state) => state.usersReducer.users  );
-
-   const LogoutHandler = () => {
-    dispatch(asynclogoutuser());
-    navigate("/")
-   }
-   
-   
+  const user = useSelector(
+    (state) => state.usersReducer.users
+  );
 
   return (
-    <nav className= " mb-10 flex justify-center items-center gap-x-5 p-5">
+    <nav className="mb-10 flex justify-center items-center gap-x-5 p-5">
 
-      <NavLink to={"/"}>Home</NavLink>
-      <NavLink to={"/products"}>Products</NavLink>
+      {/* Home */}
+      <NavLink to="/">
+        Home
+      </NavLink>
 
-      {users ? (
+
+      {user ? (
         <>
-        <NavLink to={"/admin/create-product"}>Create Product</NavLink>
-        <button onClick={LogoutHandler}>Logout</button>
+
+          {/* Admin Only */}
+          {user.isAdmin && (
+            <NavLink to="/admin/create-product">
+              Create Product
+            </NavLink>
+          )}
+
+
+          {/* Logged-in users */}
+          <NavLink to="/admin/user-profile">
+            Settings
+          </NavLink>
+
         </>
-      ): (
-      <>
-      <NavLink to={"/login"}>Login</NavLink>
-      </>
+      ) : (
+
+        /* Not logged in */
+        <NavLink to="/login">
+          Login
+        </NavLink>
+
       )}
-        
-          
-          
-          
 
-
-          
     </nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

@@ -15,21 +15,21 @@
       "isAdmin": false
     },
     {
-      "username": "bhanu",
+      "username": "sagar",
       "email": "usertwo@gmail.com",
-      "password": "123456",
-      "id": "xE5W3VCvUhc",
+      "password": "123789",
+      "id": "jbMbRG8rym8",
       "isAdmin": false
     }
   ],
   "products": [
     {
       "id": "1",
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "price": 2000,
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "category": "Men's clothing",
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png"
+      "title": "Oversized Fit Printed zip-through hoodie",
+      "price": 3999,
+      "description": "Description\nZip-through hoodie in heavyweight cotton sweatshirt fabric with a soft brushed inside and print motifs. Jersey-lined hood, a two-way zip down the front, dropped shoulders and long sleeves. Front pockets and ribbing at the cuffs. Oversized fit for a baggy, extra-loose silhouette.",
+      "category": "Men's Oversized Printed Zipper Hoodie",
+      "image": "https://image.hm.com/assets/hm/75/d0/75d052064820e567b138ec57c9d7a06692d807b4.jpg?imwidth=2160"
     },
     {
       "image": "https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/a/d/ad22b92Nike-HF5441-115_1.jpg?rnd=20200526195200&tr=w-1536",

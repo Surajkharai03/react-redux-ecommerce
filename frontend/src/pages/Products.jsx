@@ -23,7 +23,7 @@ const Products = () => {
 
         {/* DETAILS */}
         <div className="p-5 flex flex-col flex-1">
-
+          
           {/* CATEGORY */}
           <p className="text-xs font-medium uppercase tracking-wide text-gray-400 h-[18px]">
             {product.category}
@@ -41,15 +41,19 @@ const Products = () => {
 
           {/* PRICE */}
           <p className="text-2xl font-bold text-green-600 mt-4">
-            {product.price}
+            ₹
+            {Number(product.price).toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </p>
 
           {/* BUTTONS */}
           <div className="mt-auto pt-5">
-
+            
             {/* ADD TO CART + VIEW */}
             <div className="flex gap-3">
-
+              
               <button
                 className="flex-1 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2.5 rounded-lg transition-colors duration-200"
               >
@@ -81,9 +85,9 @@ const Products = () => {
 
   return products.length > 0 ? (
     <div className="w-full min-h-screen bg-slate-800 overflow-x-hidden">
-
+      
       <div className="w-full p-6">
-
+        
         <div className="w-full flex flex-wrap gap-8">
           {renderproducts}
         </div>

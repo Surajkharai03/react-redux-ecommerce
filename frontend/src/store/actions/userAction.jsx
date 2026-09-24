@@ -11,11 +11,12 @@ export const asynccurrentuser = () => async (dispatch) => {
     if (user) {
       dispatch(loaduser(user));
     } else {
-      console.log("User Not Logged In!");
+      dispatch(loaduser(null));
     }
 
   } catch (error) {
     console.log("Current User Error:", error);
+    dispatch(loaduser(null));
   }
 };
 
@@ -41,7 +42,7 @@ export const asynclogoutuser = () => async (dispatch) => {
 export const asyncloginuser = (user) => async (dispatch) => {
   try {
 
-    // Find user using email
+    // Find account using email
     const { data } = await axios.get(
       `/users?email=${encodeURIComponent(user.email)}`
     );
@@ -49,44 +50,71 @@ export const asyncloginuser = (user) => async (dispatch) => {
     console.log("Users Found:", data);
 
 
-    // Check password
+    // --------------------------------
+    // ACCOUNT DOES NOT EXIST
+    // --------------------------------
+
+    if (data.length === 0) {
+      return {
+        success: false,
+        type: "NOT_FOUND",
+        message: "You don't have an account.",
+      };
+    }
+
+
+    // --------------------------------
+    // CHECK PASSWORD
+    // --------------------------------
+
     const loggedInUser = data.find(
       (item) =>
         String(item.password) === String(user.password)
     );
 
 
-    // Wrong password
+    // --------------------------------
+    // WRONG PASSWORD
+    // --------------------------------
+
     if (!loggedInUser) {
-
-      console.log("Invalid email or password");
-
-      return false;
+      return {
+        success: false,
+        type: "WRONG_PASSWORD",
+        message: "Incorrect password. Please try again.",
+      };
     }
 
 
-    // Save logged-in user
+    // --------------------------------
+    // LOGIN SUCCESS
+    // --------------------------------
+
     localStorage.setItem(
       "user",
       JSON.stringify(loggedInUser)
     );
 
-
-    // Put user into Redux
     dispatch(loaduser(loggedInUser));
-
 
     console.log("Login Success:", loggedInUser);
 
 
-    // Tell Login.jsx that login was successful
-    return true;
+    return {
+      success: true,
+      type: "SUCCESS",
+      message: "Login successful.",
+    };
 
   } catch (error) {
 
     console.log("Login Error:", error);
 
-    return false;
+    return {
+      success: false,
+      type: "ERROR",
+      message: "Something went wrong. Please try again.",
+    };
   }
 };
 
@@ -114,5 +142,70 @@ export const asyncregisteuser = (user) => async () => {
 
     console.log("Register Error:", error);
 
+    return null;
   }
 };
+
+
+// UPDATE PASSWORD
+
+export const asyncupdatepassword =
+  (id, newPassword) => async (dispatch) => {
+
+    try {
+
+      const { data } = await axios.patch(
+        `/users/${id}`,
+        {
+          password: newPassword,
+        }
+      );
+
+      // Update localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data)
+      );
+
+      // Update Redux
+      dispatch(loaduser(data));
+
+      console.log("Password Updated Successfully");
+
+      return true;
+
+    } catch (error) {
+
+      console.log("Password Update Error:", error);
+
+      return false;
+    }
+  };
+
+
+// DELETE ACCOUNT
+
+export const asyncdeleteaccount =
+  (id) => async (dispatch) => {
+
+    try {
+
+      await axios.delete(`/users/${id}`);
+
+      // Remove from localStorage
+      localStorage.removeItem("user");
+
+      // Remove from Redux
+      dispatch(removeuser());
+
+      console.log("Account Deleted Successfully");
+
+      return true;
+
+    } catch (error) {
+
+      console.log("Delete Account Error:", error);
+
+      return false;
+    }
+  };

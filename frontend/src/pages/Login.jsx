@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { asyncloginuser } from "../store/actions/userAction";
+
 
 const Login = () => {
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+
+  const [loginError, setLoginError] = useState(null);
+
 
   const {
     register,
@@ -20,100 +21,184 @@ const Login = () => {
   } = useForm();
 
 
-  // LOGIN HANDLER
-
   const LoginHandler = async (user) => {
 
-    console.log("FORM SUBMITTED");
-    console.log("User:", user);
+    // Remove previous error
+    setLoginError(null);
 
-    // Call login action
-    const success = await dispatch(
+
+    // Login request
+    const result = await dispatch(
       asyncloginuser(user)
     );
 
-    // Redirect only if login is successful
-    if (success) {
-      navigate("/products");
+
+    // Login successful
+    if (result.success) {
+
+      navigate("/");
+
+      return;
     }
 
+
+    // Login failed
+    setLoginError(result);
   };
 
 
   return (
-    <form
-      onSubmit={handleSubmit(LoginHandler)}
-      className="flex flex-col w-1/4 justify-start items-start"
-    >
 
-      {/* EMAIL */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-800 px-4">
 
-      <input
-        className="outline-0 border-b p-2 text-2xl mb-1 w-96"
-        type="email"
-        placeholder="User Email"
-        {...register("email", {
-          required: "Email is required",
-        })}
-      />
+      <div className="w-full max-w-md">
 
-      {errors.email && (
-        <p className="text-red-500 mb-3">
-          {errors.email.message}
-        </p>
-      )}
+        {/* Heading */}
+
+        <div className="mb-8">
+
+          <h1 className="text-3xl font-semibold text-white">
+            Welcome back
+          </h1>
+
+          <p className="text-gray-400 mt-2">
+            Sign in to your account to continue.
+          </p>
+
+        </div>
 
 
-      {/* PASSWORD */}
+        {/* Login Card */}
 
-      <input
-        className="outline-0 border-b p-2 text-2xl mb-1 w-96"
-        type="password"
-        placeholder="*********"
-        {...register("password", {
-          required: "Password is required",
-          minLength: {
-            value: 6,
-            message:
-              "Password must be at least 6 characters",
-          },
-        })}
-      />
-
-      {errors.password && (
-        <p className="text-red-500 mb-3">
-          {errors.password.message}
-        </p>
-      )}
+        <div className="bg-gray-700 border border-gray-600 rounded-2xl p-7 shadow-xl">
 
 
-      {/* LOGIN BUTTON */}
-
-      <button
-        type="submit"
-        className="mt-5 px-4 py-2 bg-pink-800 rounded text-white"
-      >
-        Login User
-      </button>
+          <form
+            onSubmit={handleSubmit(LoginHandler)}
+            className="space-y-5"
+          >
 
 
-      {/* REGISTER */}
+            {/* LOGIN ERROR */}
 
-      <p className="mt-5">
+            {loginError && (
 
-        Don't have an account?{" "}
+              <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30">
 
-        <Link
-          className="text-blue-400"
-          to="/register"
-        >
-          Register
-        </Link>
+                <p className="text-sm text-red-400">
 
-      </p>
+                  {loginError.message}
 
-    </form>
+                  {loginError.type === "NOT_FOUND" && (
+                    <>
+                      {" "}
+                      <Link
+                        to="/register"
+                        className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+                      >
+                        Register here
+                      </Link>
+                    </>
+                  )}
+
+                </p>
+
+              </div>
+
+            )}
+
+
+            {/* EMAIL */}
+
+            <div>
+
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Email
+              </label>
+
+              <input
+                type="email"
+                placeholder="Enter your email"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 outline-none focus:border-pink-500 transition"
+              />
+
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-2">
+                  {errors.email.message}
+                </p>
+              )}
+
+            </div>
+
+
+            {/* PASSWORD */}
+
+            <div>
+
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Password
+              </label>
+
+              <input
+                type="password"
+                placeholder="Enter your password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 outline-none focus:border-pink-500 transition"
+              />
+
+              {errors.password && (
+                <p className="text-red-400 text-sm mt-2">
+                  {errors.password.message}
+                </p>
+              )}
+
+            </div>
+
+
+            {/* LOGIN BUTTON */}
+
+            <button
+              type="submit"
+              className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 rounded-lg font-medium transition"
+            >
+              Login
+            </button>
+
+
+          </form>
+
+
+          {/* REGISTER */}
+
+          <div className="mt-6 pt-6 border-t border-gray-600 text-center">
+
+            <p className="text-sm text-gray-400">
+
+              Don't have an account?
+
+              <Link
+                to="/register"
+                className="ml-2 text-pink-400 hover:text-pink-300 font-medium"
+              >
+                Create account
+              </Link>
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   );
 };
+
 
 export default Login;
