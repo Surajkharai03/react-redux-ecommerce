@@ -18,6 +18,7 @@ const Register = () => {
   const RegisterHandler = async (user) => {
     user.id = nanoid();
     user.isAdmin = false;
+    user.cart = []
 
     console.log("REGISTER USER:", user);
 

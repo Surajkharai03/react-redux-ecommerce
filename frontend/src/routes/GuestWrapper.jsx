@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-const AuthWrapper = ({ children }) => {
+const GuestWrapper = ({ children }) => {
   const { users, isInitialized } = useSelector(
     (state) => state.usersReducer
   );
@@ -10,11 +10,11 @@ const AuthWrapper = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  if (!users) {
-    return <Navigate to="/login" replace />;
+  if (users) {
+    return <Navigate to="/" replace />;
   }
 
   return children;
 };
 
-export default AuthWrapper;
+export default GuestWrapper;

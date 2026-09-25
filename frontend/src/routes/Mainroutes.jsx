@@ -1,42 +1,74 @@
 import { Route, Routes } from "react-router-dom";
 
 import Products from "../pages/Products";
+import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+
 import CreateProduct from "../pages/admin/CreateProduct";
 import ProductDetails from "../pages/admin/ProductDetails";
 import UserProfile from "../pages/user/UserProfile";
+
 import PageNotFound from "../PageNotFound";
 
 import AuthWrapper from "./AuthWrapper";
 import AdminWrapper from "./AdminWrapper";
+import GuestWrapper from "./GuestWrapper";
 
 
 const Mainroutes = () => {
 
   return (
+
     <Routes>
 
-      {/* Home */}
+
+      {/* ================= HOME ================= */}
+
       <Route
         path="/"
         element={<Products />}
       />
 
 
-      {/* Authentication */}
+      {/* ================= LOGIN ================= */}
+
       <Route
         path="/login"
-        element={<Login />}
+        element={
+          <GuestWrapper>
+            <Login />
+          </GuestWrapper>
+        }
       />
+
+
+      {/* ================= REGISTER ================= */}
 
       <Route
         path="/register"
-        element={<Register />}
+        element={
+          <GuestWrapper>
+            <Register />
+          </GuestWrapper>
+        }
       />
 
 
-      {/* Admin Only */}
+      {/* ================= CART ================= */}
+
+      <Route
+        path="/cart"
+        element={
+          <AuthWrapper>
+            <Cart />
+          </AuthWrapper>
+        }
+      />
+
+
+      {/* ================= ADMIN ================= */}
+
       <Route
         path="/admin/create-product"
         element={
@@ -47,7 +79,8 @@ const Mainroutes = () => {
       />
 
 
-      {/* Logged-in Users */}
+      {/* ================= USER PROFILE ================= */}
+
       <Route
         path="/admin/user-profile"
         element={
@@ -56,6 +89,9 @@ const Mainroutes = () => {
           </AuthWrapper>
         }
       />
+
+
+      {/* ================= PRODUCT DETAILS ================= */}
 
       <Route
         path="/product/:id"
@@ -67,14 +103,17 @@ const Mainroutes = () => {
       />
 
 
-      {/* 404 */}
+      {/* ================= 404 ================= */}
+
       <Route
         path="*"
         element={<PageNotFound />}
       />
 
     </Routes>
+
   );
+
 };
 
 export default Mainroutes;

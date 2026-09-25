@@ -5,21 +5,33 @@
       "username": "skop",
       "email": "adminop03@gmail.com",
       "password": "132555",
-      "isAdmin": true
+      "isAdmin": true,
+      "cart": []
     },
     {
       "username": "sagar",
       "email": "userone@gmail.com",
       "password": "693256",
       "id": "QhVDBvpsE-M",
-      "isAdmin": false
+      "isAdmin": false,
+      "cart": []
     },
     {
       "username": "sagar",
       "email": "usertwo@gmail.com",
       "password": "123789",
       "id": "jbMbRG8rym8",
-      "isAdmin": false
+      "isAdmin": false,
+      "cart": [
+        {
+          "id": "4ImxHP6h48U",
+          "quantity": 1
+        },
+        {
+          "id": "1",
+          "quantity": 2
+        }
+      ]
     }
   ],
   "products": [
@@ -27,7 +39,7 @@
       "id": "1",
       "title": "Oversized Fit Printed zip-through hoodie",
       "price": 3999,
-      "description": "Description\nZip-through hoodie in heavyweight cotton sweatshirt fabric with a soft brushed inside and print motifs. Jersey-lined hood, a two-way zip down the front, dropped shoulders and long sleeves. Front pockets and ribbing at the cuffs. Oversized fit for a baggy, extra-loose silhouette.",
+      "description": "\nZip-through hoodie in heavyweight cotton sweatshirt fabric with a soft brushed inside and print motifs. Jersey-lined hood, a two-way zip down the front, dropped shoulders and long sleeves. Front pockets and ribbing at the cuffs. Oversized fit for a baggy, extra-loose silhouette.",
       "category": "Men's Oversized Printed Zipper Hoodie",
       "image": "https://image.hm.com/assets/hm/75/d0/75d052064820e567b138ec57c9d7a06692d807b4.jpg?imwidth=2160"
     },
@@ -38,6 +50,14 @@
       "description": "You can always count on a classic. The Dunk Low pairs its iconic colour-blocking with premium materials and plush padding for game-changing comfort that lasts. ",
       "category": "Men's Shoes",
       "id": "4ImxHP6h48U"
+    },
+    {
+      "image": "https://m.media-amazon.com/images/I/819NRN8ujHL._SL1500_.jpg",
+      "title": "Sony Alpha ILCE-7M5M",
+      "price": "253990",
+      "description": "The Sony Alpha ILCE-7M5M (commonly known as the Sony a7 V) is a full-frame hybrid mirrorless camera featuring a 33-megapixel partially stacked Exmor RS CMOS sensor and a BIONZ XR2 AI processing engine",
+      "category": "electronics",
+      "id": "_qqmEiD9y5w"
     }
   ],
   "carts": [],

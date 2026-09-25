@@ -18,26 +18,24 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ==========================================
+
   // GET PRODUCTS FROM REDUX
-  // ==========================================
+ 
 
   const products = useSelector(
     (state) => state.productsReducer.products
   );
 
-  // ==========================================
   // GET CURRENT USER FROM REDUX
-  // IMPORTANT: your userSlice uses "users"
-  // ==========================================
+ 
 
   const user = useSelector(
     (state) => state.usersReducer.users
   );
 
-  // ==========================================
+ 
   // CHECK ADMIN
-  // ==========================================
+
 
   const isAdmin = user?.isAdmin === true;
 
@@ -45,23 +43,22 @@ const ProductDetails = () => {
   console.log("CURRENT USER:", user);
   console.log("IS ADMIN:", isAdmin);
 
-  // ==========================================
+ 
   // FIND PRODUCT
-  // ==========================================
+
 
   const product = products.find(
     (item) => String(item.id) === String(id)
   );
 
-  // ==========================================
+
   // LIKE
-  // ==========================================
+
 
   const [liked, setLiked] = useState(false);
 
-  // ==========================================
   // REACT HOOK FORM
-  // ==========================================
+
 
   const {
     register,
@@ -69,9 +66,8 @@ const ProductDetails = () => {
     reset,
   } = useForm();
 
-  // ==========================================
   // LOAD PRODUCT INTO FORM
-  // ==========================================
+ 
 
   useEffect(() => {
     if (product) {
@@ -85,9 +81,9 @@ const ProductDetails = () => {
     }
   }, [product?.id, reset]);
 
-  // ==========================================
+ 
   // UPDATE PRODUCT
-  // ==========================================
+
 
   const updateProductHandler = (data) => {
     if (!isAdmin) {
@@ -108,9 +104,9 @@ const ProductDetails = () => {
     );
   };
 
-  // ==========================================
+ 
   // DELETE PRODUCT
-  // ==========================================
+  
 
   const deleteProductHandler = () => {
     if (!isAdmin) {
@@ -133,10 +129,9 @@ const ProductDetails = () => {
     navigate("/products");
   };
 
-  // ==========================================
+ 
   // LOADING
-  // ==========================================
-
+ 
   if (!product) {
     return (
       <div className="w-full min-h-screen bg-slate-800 flex items-center justify-center">
@@ -150,9 +145,9 @@ const ProductDetails = () => {
   return (
     <div className="w-full min-h-screen bg-slate-800 px-[8%] py-12">
 
-      {/* ==========================================
-          MAIN PRODUCT CARD
-      ========================================== */}
+     
+          {/* MAIN PRODUCT CARD */}
+     
 
       <div className="w-full max-w-6xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
 
@@ -269,9 +264,9 @@ const ProductDetails = () => {
       </div>
 
 
-      {/* ==========================================
+      {/* 
           PRODUCT DETAILS
-      ========================================== */}
+      */}
 
       <div className="w-full max-w-6xl mx-auto mt-10 bg-white rounded-3xl shadow-2xl p-8 md:p-12">
 
@@ -370,10 +365,10 @@ const ProductDetails = () => {
       </div>
 
 
-      {/* ==========================================
+      {/* 
           UPDATE PRODUCT
           ADMIN ONLY
-      ========================================== */}
+      */}
 
       {isAdmin && (
         <div className="w-full max-w-6xl mx-auto mt-10 bg-white rounded-3xl shadow-2xl p-8 md:p-10">
